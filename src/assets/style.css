@@ -1,0 +1,15 @@
+/* FONTES GERAIS USADAS */
+/* 
+font-family: 'Lexend Deca', sans-serif;
+font-family: 'Playball', cursive;
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 20px;
+    color: #666666;
+}
