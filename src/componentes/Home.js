@@ -1,49 +1,91 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import styled from "styled-components"
 import logo from "../assets/logo.svg"
 
-export default function Home() {
+export default function Home(props) {
+    const { logado, setLogado } = props;
     const navigate = useNavigate();
-    const [dadosLogin, setDadosLogin] = useState({ email: "", password: "" })
+    const [dadosLogin, setDadosLogin] = useState({ email: "masih.saldanha@gmail.com", password: "macuco" });
+    const [carregandoLogin, setCarregandoLogin] = useState(false);
 
     function fazerLogin(e) {
         e.preventDefault()
+        setCarregandoLogin(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosLogin);
         promise.then(response => {
-            console.log("Deu bom o envio", response);
-            navigate("/hoje/")
+            const { data } = response;
+            // const { token } = data;
+            console.log("Deu bom o envio", data);
+            navigate("/hoje/");
+            setLogado(true);
         });
-        promise.catch(response => {
-            alert("Algo deu errado, confira se seus dados estão corretos.");
+        promise.catch(err => {
+            const { response } = err;
+            const { data } = response
+            const { message } = data;
+            alert(message);
             setDadosLogin({ email: "", password: "" });
-            console.log("Deu ruim o envio", response)
+            // console.log("Deu ruim o envio", message);
+            setCarregandoLogin(false);
         });
     }
-
-    return (
+    if (logado) {
+        return (
+            <h1>Você já está logado!</h1>
+        )
+    } else return (
         <FrenteLogin>
-            <img src={logo} alt="logo" onClick={() => console.log(dadosLogin)} />
-            <form onSubmit={fazerLogin}>
-                <input
-                    type="email"
-                    value={dadosLogin.email}
-                    onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
-                    nome="email"
-                    id="email"
-                    placeholder="email"
-                />
-                <input
-                    type="password"
-                    value={dadosLogin.password}
-                    onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
-                    nome="senha"
-                    id="senha"
-                    placeholder="senha"
-                />
-                <button type="submit">Entrar</button>
-            </form>
+            <img src={logo} alt="logo" />
+            {carregandoLogin === false ?
+                <form onSubmit={fazerLogin}>
+                    <input
+                        type="email"
+                        value={dadosLogin.email}
+                        onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                        nome="email"
+                        id="email"
+                        placeholder="email"
+                        required
+                    />
+                    <input
+                        type="password"
+                        value={dadosLogin.password}
+                        onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                        nome="senha"
+                        id="senha"
+                        placeholder="senha"
+                        required
+                    />
+                    <button type="submit">Entrar</button>
+                </form> :
+                <form onSubmit={fazerLogin}>
+                    <input
+                        type="email"
+                        value={dadosLogin.email}
+                        onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                        nome="email"
+                        id="email"
+                        placeholder="email"
+                        required
+                        disabled
+                    />
+                    <input
+                        type="password"
+                        value={dadosLogin.password}
+                        onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                        nome="senha"
+                        id="senha"
+                        placeholder="senha"
+                        required
+                        disabled
+                    />
+                    <button disabled>
+                        <ThreeDots color="#FFFFFF" height={13} width={13} />
+                    </button>
+                </form>}
             <Link to="/cadastro">
                 <h1>Não tem uma conta? Cadastre-se!</h1>
             </Link>
