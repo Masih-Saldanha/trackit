@@ -2,12 +2,12 @@ import { useState } from "react";
 import styled from "styled-components";
 import check_marca from "../assets/checkbox-marca.svg";
 
-export default function HabitoHoje() {
+export default function HojeLista() {
     const [cor, setCor] = useState("#EBEBEB")
     const [selecionado, setSelecionado] = useState(false);
 
     return (
-        <CaixaHabito cor={cor}>
+        <CaixaHabitoHoje cor={cor}>
             <section>
                 <h2>Ler 1 capítulo de livro</h2>
                 <h3>Sequência atual: 3 dias</h3>
@@ -15,20 +15,20 @@ export default function HabitoHoje() {
             </section>
             <figure onClick={() => {
                 if (selecionado) {
-                    setCor("#8FC549");
+                    setCor("#EBEBEB");
                     setSelecionado(false);
                 } else {
-                    setCor("#EBEBEB");
+                    setCor("#8FC549");
                     setSelecionado(true);
                 }
             }}>
                 <img src={check_marca} alt="Caixa de Marcar" />
             </figure>
-        </CaixaHabito>
+        </CaixaHabitoHoje>
     )
 }
 
-const CaixaHabito = styled.article`
+const CaixaHabitoHoje = styled.article`
 padding: 13px;
 background: #FFFFFF;
 border-radius: 5px;

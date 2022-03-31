@@ -39,6 +39,7 @@ width: 100vw;
 padding: 10px 18px;
 background-color: #126BA5;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+z-index: 1;
 h1 {
     font-family: 'Playball';
     font-size: 39px;
@@ -60,6 +61,7 @@ bottom: 0;
 width: 100vw;
 padding: 26px 36px;
 background-color: #FFFFFF;
+z-index: 1;
 h1 {
     color: #52B6FF;
 }
@@ -73,6 +75,7 @@ height: 90px;
 text-align: center;
 border-radius: 50%;
 background-color: #52B6FF;
+z-index: 2;
 h2 {
     margin-top: calc(45px - 11px);
     color: #FFFFFF;

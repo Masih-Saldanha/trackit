@@ -1,16 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
-import HabitoHoje from "./HabitoHoje";
+import HojeLista from "./HojeLista";
 
 export default function Hoje() {
-    const [listaHabitosHoje, setListaHabitosHoje] = useState([0, 1, 2])
+    const [listaHabitosHoje, setListaHabitosHoje] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
     function renderizarHabitosHoje() {
         if (listaHabitosHoje.length > 0) {
             return listaHabitosHoje.map(habito => {
                 // const { algo, algo2, algo3 } = habito;
                 return (
-                    <HabitoHoje key={habito} />
+                    <HojeLista key={habito} />
                 )
             })
         }
