@@ -37,36 +37,4 @@ p {
     color: #BABABA;
     margin-bottom: 28px;
 }
-article {
-    padding: 13px;
-    background: #FFFFFF;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-    section {
-        h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-        h3 {
-            font-size: 13px;
-            margin-bottom: 3px;
-        }
-    }
-    figure {
-        width: 69px;
-        height: 69px;
-        background: #EBEBEB;
-        border: 1px solid #E7E7E7;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
-            height: 28px;
-        }
-    }
-}
 `
