@@ -2,8 +2,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
-import styled from "styled-components"
-import logo from "../assets/logo.svg"
+import styled from "styled-components";
+import logo from "../assets/logo.svg";
 
 export default function Home(props) {
     const { logado, setLogado } = props;
@@ -34,64 +34,85 @@ export default function Home(props) {
     }
     if (logado) {
         return (
-            <h1>Você já está logado!</h1>
+            <FrenteLogado>Você está logado! :)</FrenteLogado>
         )
     } else return (
-        <FrenteLogin>
-            <img src={logo} alt="logo" />
-            {carregandoLogin === false ?
-                <form onSubmit={fazerLogin}>
-                    <input
-                        type="email"
-                        value={dadosLogin.email}
-                        onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
-                        nome="email"
-                        id="email"
-                        placeholder="email"
-                        required
-                    />
-                    <input
-                        type="password"
-                        value={dadosLogin.password}
-                        onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
-                        nome="senha"
-                        id="senha"
-                        placeholder="senha"
-                        required
-                    />
-                    <button type="submit">Entrar</button>
-                </form> :
-                <form onSubmit={fazerLogin}>
-                    <input
-                        type="email"
-                        value={dadosLogin.email}
-                        onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
-                        nome="email"
-                        id="email"
-                        placeholder="email"
-                        required
-                        disabled
-                    />
-                    <input
-                        type="password"
-                        value={dadosLogin.password}
-                        onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
-                        nome="senha"
-                        id="senha"
-                        placeholder="senha"
-                        required
-                        disabled
-                    />
-                    <button disabled>
-                        <ThreeDots color="#FFFFFF" height={13} width={13} />
-                    </button>
-                </form>}
-            <Link to="/cadastro">
-                <h1>Não tem uma conta? Cadastre-se!</h1>
-            </Link>
-        </FrenteLogin>
+        <Fundo>
+            <FrenteLogin>
+                <img src={logo} alt="logo" />
+                {carregandoLogin === false ?
+                    <form onSubmit={fazerLogin}>
+                        <input
+                            type="email"
+                            value={dadosLogin.email}
+                            onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                            nome="email"
+                            id="email"
+                            placeholder="email"
+                            required
+                        />
+                        <input
+                            type="password"
+                            value={dadosLogin.password}
+                            onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                            nome="senha"
+                            id="senha"
+                            placeholder="senha"
+                            required
+                        />
+                        <button type="submit">Entrar</button>
+                    </form> :
+                    <form onSubmit={fazerLogin}>
+                        <input
+                            type="email"
+                            value={dadosLogin.email}
+                            onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                            nome="email"
+                            id="email"
+                            placeholder="email"
+                            required
+                            disabled
+                        />
+                        <input
+                            type="password"
+                            value={dadosLogin.password}
+                            onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                            nome="senha"
+                            id="senha"
+                            placeholder="senha"
+                            required
+                            disabled
+                        />
+                        <button disabled>
+                            <ThreeDots color="#FFFFFF" height={13} width={13} />
+                        </button>
+                    </form>}
+                <Link to="/cadastro">
+                    <h1>Não tem uma conta? Cadastre-se!</h1>
+                </Link>
+            </FrenteLogin>
+        </Fundo>
     )
 }
+
+const Fundo = styled.figure`
+position: fixed;
+height: 100vh;
+width: 100vw;
+background-color: #FFFFFF;
+`
+
+const FrenteLogado = styled.figure`
+position: fixed;
+top: calc(50vh - 20px);
+left: calc(50vw - 105.25px);
+padding: 10px;
+border-radius: 5px;
+background-color: #52B6FF;
+
+font-size: 20px;
+color: #FFFFFF;
+`
 
 const FrenteLogin = styled.section`
 display: flex;
