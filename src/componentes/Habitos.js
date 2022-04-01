@@ -4,7 +4,7 @@ import HabitosLista from "./HabitosLista";
 import HabitosListaDiasDaSemana from "./HabitosListaDiasDaSemana";
 
 export default function Habitos() {
-    const [listaHabitos, setListaHabitos] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    const [listaHabitos, setListaHabitos] = useState([]);
     const [adicionarHabito, setAdicionarHabito] = useState(false);
     const [habitoNovo, setHabitoNovo] = useState({ name: "", days: [] });
     const arraySemana = ["D", "S", "T", "Q", "Q", "S", "S"];
@@ -51,7 +51,7 @@ export default function Habitos() {
                                 {renderizarListaDiasDaSemana}
                             </menu>
                             <div>
-                                <BotaoSalvar onClick={() => setHabitoNovo({ ...habitoNovo, days: habitoNovo.days.sort() })}>Salvar</BotaoSalvar>
+                                <BotaoSalvar type="submit" onClick={() => setHabitoNovo({ ...habitoNovo, days: habitoNovo.days.sort() })}>Salvar</BotaoSalvar>
                                 <BotaoCancelar onClick={() => setAdicionarHabito(false)}>Cancelar</BotaoCancelar>
                             </div>
                         </JanelaAdicionarHabito> :
@@ -67,7 +67,24 @@ export default function Habitos() {
         } else {
             return (
                 <>
-                    {adicionarHabito ? <h1>Janela de adicionar</h1> : <></>}
+                    {adicionarHabito ?
+                        <JanelaAdicionarHabito>
+                            <input
+                                type="text"
+                                value={habitoNovo.name}
+                                onChange={(e) => setHabitoNovo({ ...habitoNovo, name: e.target.value })}
+                                nome="nome do hábito"
+                                id="nome do hábito"
+                                placeholder="nome do hábito"
+                            />
+                            <menu>
+                                {renderizarListaDiasDaSemana}
+                            </menu>
+                            <div>
+                                <BotaoSalvar type="submit" onClick={() => setHabitoNovo({ ...habitoNovo, days: habitoNovo.days.sort() })}>Salvar</BotaoSalvar>
+                                <BotaoCancelar onClick={() => setAdicionarHabito(false)}>Cancelar</BotaoCancelar>
+                            </div>
+                        </JanelaAdicionarHabito> : <></>}
                     <p>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
                 </>
             )
@@ -111,7 +128,7 @@ section {
 }
 `
 
-const JanelaAdicionarHabito = styled.article`
+const JanelaAdicionarHabito = styled.form`
 padding: 13px;
 background: #FFFFFF;
 border-radius: 5px;
@@ -125,6 +142,7 @@ input {
     height: 45px;
     margin-bottom: 10px;
     background: #FFFFFF;
+    color: #666666;
     border: 1px solid #D5D5D5;
     border-radius: 5px;
     font-size: 20px;

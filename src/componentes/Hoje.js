@@ -3,7 +3,7 @@ import styled from "styled-components";
 import HojeLista from "./HojeLista";
 
 export default function Hoje() {
-    const [listaHabitosHoje, setListaHabitosHoje] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    const [listaHabitosHoje, setListaHabitosHoje] = useState([])
 
     function renderizarHabitosHoje() {
         if (listaHabitosHoje.length > 0) {

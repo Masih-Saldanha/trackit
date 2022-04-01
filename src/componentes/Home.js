@@ -10,7 +10,7 @@ export default function Home() {
     const contexto = useContext(TokenContext);
 
     const navigate = useNavigate();
-    const [dadosLogin, setDadosLogin] = useState({ email: "masih.saldanha@gmail.com", password: "macuco" });
+    const [dadosLogin, setDadosLogin] = useState({ email: "masih@email.com", password: "macuco" });
     const [carregandoLogin, setCarregandoLogin] = useState(false);
 
     function fazerLogin(e) {
@@ -19,10 +19,11 @@ export default function Home() {
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosLogin);
         promise.then(response => {
             const { data } = response;
-            const { token } = data;
+            const { token, image } = data;
             console.log("Deu bom o envio", data);
             navigate("/hoje/");
             contexto.setToken(token);
+            contexto.setImagemPerfil(image);
         });
         promise.catch(err => {
             const { response } = err;

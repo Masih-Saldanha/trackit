@@ -11,9 +11,10 @@ import Historico from "./Historico";
 
 export default function App() {
     const [token, setToken] = useState("");
+    const [imagemPerfil, setImagemPerfil] = useState("");
 
     return (
-        <TokenContext.Provider value={{token, setToken}}>
+        <TokenContext.Provider value={{token, setToken, imagemPerfil, setImagemPerfil}}>
             <BrowserRouter>
                 <TopoEMenu />
                 <Routes>

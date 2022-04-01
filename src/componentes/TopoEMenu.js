@@ -2,17 +2,16 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TokenContext from "../contextos/TokenContext";
-import foto from "../assets/ashen-one.jpg";
 
 export default function TopoEMenu() {
-    const { token } = useContext(TokenContext);
+    const { token, imagemPerfil } = useContext(TokenContext);
 
     if (token !== "") {
         return (
             <>
                 <Topo>
                     <h1>TrackIt</h1>
-                    <img src={foto} alt="foto" />
+                    <img src={imagemPerfil} alt="foto" />
                 </Topo>
                 <Base>
                     <Link to="/habitos/">
