@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
 
 import TokenContext from "../contextos/TokenContext";
 import TopoEMenu from "./TopoEMenu";
@@ -12,9 +13,30 @@ import Historico from "./Historico";
 export default function App() {
     const [token, setToken] = useState("");
     const [imagemPerfil, setImagemPerfil] = useState("");
+    const [listaHabitos, setListaHabitos] = useState([]);
+
+    function receberHistorico() {
+        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const promise = axios.get(url, config);
+        promise.then((response) => {
+            const { data } = response;
+            setListaHabitos(data);
+        })
+        promise.catch((err) => {
+            const { response } = err;
+            const { data } = response;
+            const { message } = data;
+            alert(message);
+        })
+    }
 
     return (
-        <TokenContext.Provider value={{token, setToken, imagemPerfil, setImagemPerfil}}>
+        <TokenContext.Provider value={{token, setToken, imagemPerfil, setImagemPerfil, listaHabitos, setListaHabitos, receberHistorico}}>
             <BrowserRouter>
                 <TopoEMenu />
                 <Routes>

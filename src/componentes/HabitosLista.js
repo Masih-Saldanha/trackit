@@ -1,7 +1,31 @@
+import { useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
+import TokenContext from "../contextos/TokenContext";
 import lixeira from "../assets/lixeira.svg";
 
-export default function HabitosLista({nome, dias}) {
+export default function HabitosLista({id, nome, dias}) {
+    const { token, receberHistorico } = useContext(TokenContext);
+
+    function apagar() {
+        const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const promise = axios.delete(url, config);
+        promise.then((response) => {
+            receberHistorico();
+        })
+        promise.catch((err) => {
+            const { response } = err;
+            const { data } = response;
+            const { message } = data;
+            alert(message);
+        })
+    }
+
     return (
         <CaixaHabito>
             <h2>{nome}</h2>
@@ -17,7 +41,12 @@ export default function HabitosLista({nome, dias}) {
             <img
                 src={lixeira}
                 alt="lixeira"
-                // onClick={}
+                onClick={() => {
+                    const confirmar = window.confirm("Deseja mesmo apagar este hábito da sua lista?");
+                    if (confirmar) {
+                        apagar()
+                    }
+                }}
             />
         </CaixaHabito>
     )
@@ -38,19 +67,6 @@ h2 {
 }
 div {
     display: flex;
-    /* h2 {
-        margin-bottom: 0px;
-        width: 30px;
-        height: 30px;
-        margin-right: 4px;
-        background: #FFFFFF;
-        color: #DBDBDB;
-        border: 1px solid #D5D5D5;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    } */
 }
 img {
     width: 13px;

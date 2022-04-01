@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TokenContext from "../contextos/TokenContext";
 
 export default function TopoEMenu() {
-    const { token, imagemPerfil } = useContext(TokenContext);
+    const { token, imagemPerfil, receberHistorico } = useContext(TokenContext);
 
     if (token !== "") {
         return (
@@ -15,7 +15,7 @@ export default function TopoEMenu() {
                 </Topo>
                 <Base>
                     <Link to="/habitos/">
-                        <h1>Hábitos</h1>
+                        <h1 onClick={receberHistorico}>Hábitos</h1>
                     </Link>
                     <Link to="/historico/">
                         <h1>Histórico</h1>

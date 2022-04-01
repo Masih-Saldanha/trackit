@@ -7,13 +7,13 @@ import HabitosListaDiasDaSemana from "./HabitosListaDiasDaSemana";
 import TokenContext from "../contextos/TokenContext";
 
 export default function Habitos() {
-    const [listaHabitos, setListaHabitos] = useState([]);
+
     const [adicionarHabito, setAdicionarHabito] = useState(false);
     const [habitoNovo, setHabitoNovo] = useState({ name: "", days: [] });
     const [carregandoHabitoNovo, setCarregandoHabitoNovo] = useState(false);
     const arraySemana = ["D", "S", "T", "Q", "Q", "S", "S"];
 
-    const { token } = useContext(TokenContext);
+    const { token, listaHabitos, setListaHabitos } = useContext(TokenContext);
 
     function tirarElemento(array, item) {
         return array.filter(elemento => {
@@ -22,8 +22,6 @@ export default function Habitos() {
     }
 
     function enviarHabito(e) {
-        // busque a lista enviando o token no cabeçalho
-        // e coloque-a no estado list
         e.preventDefault();
         setCarregandoHabitoNovo(true);
         const url =
@@ -36,7 +34,6 @@ export default function Habitos() {
         const promise = axios.post(url, habitoNovo, config);
         promise.then((response) => {
             const { data } = response;
-            console.log(data);
             setListaHabitos([...listaHabitos, data]);
             setHabitoNovo({ name: "", days: [] });
             setCarregandoHabitoNovo(false)
@@ -121,6 +118,7 @@ export default function Habitos() {
                         return (
                             <HabitosLista
                                 key={id}
+                                id={id}
                                 nome={name}
                                 dias={days}
                             />
