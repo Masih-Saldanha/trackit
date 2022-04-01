@@ -2,16 +2,16 @@ import { useState } from "react";
 import styled from "styled-components";
 import check_marca from "../assets/checkbox-marca.svg";
 
-export default function HojeLista() {
+export default function HojeLista({ id, name, done, currentSequence, highestSequence }) {
     const [cor, setCor] = useState("#EBEBEB")
     const [selecionado, setSelecionado] = useState(false);
 
     return (
         <CaixaHabitoHoje cor={cor}>
             <section>
-                <h2>Ler 1 capítulo de livro</h2>
-                <h3>Sequência atual: 3 dias</h3>
-                <h3>Seu recorde: 5 dias</h3>
+                <h2>{name}</h2>
+                <h3>Sequência atual: {currentSequence} dias</h3>
+                <h3>Seu recorde: {highestSequence} dias</h3>
             </section>
             <figure onClick={() => {
                 if (selecionado) {

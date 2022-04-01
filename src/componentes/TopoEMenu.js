@@ -4,12 +4,15 @@ import styled from "styled-components";
 import TokenContext from "../contextos/TokenContext";
 
 export default function TopoEMenu() {
-    const { token, imagemPerfil, receberHistorico } = useContext(TokenContext);
+    const { token, imagemPerfil, receberHistorico, receberHabitosHoje } = useContext(TokenContext);
 
     if (token !== "") {
         return (
             <>
-                <Topo onLoad={receberHistorico}>
+                <Topo onLoad={() => {
+                    receberHistorico();
+                    receberHabitosHoje();
+                }}>
                     <h1>TrackIt</h1>
                     <img src={imagemPerfil} alt="foto" />
                 </Topo>
@@ -23,7 +26,7 @@ export default function TopoEMenu() {
                 </Base>
                 <BotaoHoje>
                     <Link to="/hoje/">
-                        <h2>Hoje</h2>
+                        <h2 onClick={receberHabitosHoje}>Hoje</h2>
                     </Link>
                 </BotaoHoje>
             </>

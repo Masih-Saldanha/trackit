@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import HojeLista from "./HojeLista";
+import TokenContext from "../contextos/TokenContext";
 
 export default function Hoje() {
-    const [listaHabitosHoje, setListaHabitosHoje] = useState([])
+    const { listaHabitosHoje } = useContext(TokenContext);
 
     function renderizarHabitosHoje() {
         if (listaHabitosHoje.length > 0) {
             return listaHabitosHoje.map(habito => {
-                // const { algo, algo2, algo3 } = habito;
+                const { id, name, done, currentSequence, highestSequence } = habito;
                 return (
-                    <HojeLista key={habito} />
+                    <HojeLista
+                        key={id}
+                        id={id}
+                        name={name}
+                        done={done}
+                        currentSequence={currentSequence}
+                        highestSequence={highestSequence}
+                    />
                 )
             })
         }
