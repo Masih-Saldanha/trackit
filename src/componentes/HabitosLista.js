@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import lixeira from "../assets/lixeira.svg";
 
-export default function HabitosLista() {
+export default function HabitosLista({nome, dias}) {
     return (
         <CaixaHabito>
-            <h2>Ler 1 capítulo de livro</h2>
+            <h2>{nome}</h2>
             <div>
-                <h2>D</h2>
-                <h2>S</h2>
-                <h2>T</h2>
-                <h2>Q</h2>
-                <h2>Q</h2>
-                <h2>S</h2>
-                <h2>S</h2>
+                {dias.includes(0) ? <Selecionado>D</Selecionado> : <NaoSelecionado>D</NaoSelecionado>}
+                {dias.includes(1) ? <Selecionado>S</Selecionado> : <NaoSelecionado>S</NaoSelecionado>}
+                {dias.includes(2) ? <Selecionado>T</Selecionado> : <NaoSelecionado>T</NaoSelecionado>}
+                {dias.includes(3) ? <Selecionado>Q</Selecionado> : <NaoSelecionado>Q</NaoSelecionado>}
+                {dias.includes(4) ? <Selecionado>Q</Selecionado> : <NaoSelecionado>Q</NaoSelecionado>}
+                {dias.includes(5) ? <Selecionado>S</Selecionado> : <NaoSelecionado>S</NaoSelecionado>}
+                {dias.includes(6) ? <Selecionado>S</Selecionado> : <NaoSelecionado>S</NaoSelecionado>}
             </div>
             <img
                 src={lixeira}
@@ -38,7 +38,7 @@ h2 {
 }
 div {
     display: flex;
-    h2 {
+    /* h2 {
         margin-bottom: 0px;
         width: 30px;
         height: 30px;
@@ -50,7 +50,7 @@ div {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
+    } */
 }
 img {
     width: 13px;
@@ -59,4 +59,31 @@ img {
     top: 10px;
     right: 10px;
 }
+`
+const Selecionado = styled.h2`
+margin-bottom: 0px;
+width: 30px;
+height: 30px;
+margin-right: 4px;
+background: #DBDBDB;
+color: #FFFFFF;
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+`
+
+const NaoSelecionado = styled.h2`
+margin-bottom: 0px;
+width: 30px;
+height: 30px;
+margin-right: 4px;
+background: #FFFFFF;
+color: #DBDBDB;
+border: 1px solid #D5D5D5;
+border-radius: 5px;
+display: flex;
+justify-content: center;
+align-items: center;
 `

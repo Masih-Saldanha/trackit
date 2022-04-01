@@ -7,7 +7,7 @@ import TokenContext from "../contextos/TokenContext";
 import logo from "../assets/logo.svg";
 
 export default function Home() {
-    const contexto = useContext(TokenContext);
+    const { token, setToken, setImagemPerfil } = useContext(TokenContext);
 
     const navigate = useNavigate();
     const [dadosLogin, setDadosLogin] = useState({ email: "masih@email.com", password: "macuco" });
@@ -20,10 +20,10 @@ export default function Home() {
         promise.then(response => {
             const { data } = response;
             const { token, image } = data;
-            console.log("Deu bom o envio", data);
+            // console.log("Deu bom o envio", data);
             navigate("/hoje/");
-            contexto.setToken(token);
-            contexto.setImagemPerfil(image);
+            setToken(token);
+            setImagemPerfil(image);
         });
         promise.catch(err => {
             const { response } = err;
@@ -35,7 +35,7 @@ export default function Home() {
             setCarregandoLogin(false);
         });
     }
-    if (contexto.token !== "") {
+    if (token !== "") {
         return (
             <FrenteLogado>Você está logado! :)</FrenteLogado>
         )

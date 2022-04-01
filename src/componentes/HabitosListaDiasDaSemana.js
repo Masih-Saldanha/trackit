@@ -1,21 +1,33 @@
 import styled from "styled-components";
 
 export default function HabitosListaDiasDaSemana(props) {
-    const { dia, indice, habitoNovo, setHabitoNovo, tirarElemento } = props;
+    const { dia, indice, habitoNovo, setHabitoNovo, tirarElemento, carregandoHabitoNovo } = props;
 
     if (habitoNovo.days.includes(indice) === false) {
         return (
-            <DiaDesselecionado onClick={() => {
-                setHabitoNovo({ ...habitoNovo, days: [...habitoNovo.days, indice] });
-            }
-            }>{dia}</DiaDesselecionado>
+            carregandoHabitoNovo === false ?
+                <DiaDesselecionado onClick={() => {
+                    setHabitoNovo({ ...habitoNovo, days: [...habitoNovo.days, indice] });
+                }
+                }>{dia}</DiaDesselecionado>
+                :
+                <DiaDesselecionado disabled onClick={() => {
+                    setHabitoNovo({ ...habitoNovo, days: [...habitoNovo.days, indice] });
+                }
+                }>{dia}</DiaDesselecionado>
         )
     } else {
         return (
-            <DiaSelecionado onClick={() => {
-                setHabitoNovo({ ...habitoNovo, days: tirarElemento(habitoNovo.days, indice) });
-            }
-            }>{dia}</DiaSelecionado>
+            carregandoHabitoNovo === false ?
+                <DiaSelecionado onClick={() => {
+                    setHabitoNovo({ ...habitoNovo, days: tirarElemento(habitoNovo.days, indice) });
+                }
+                }>{dia}</DiaSelecionado>
+                :
+                <DiaSelecionado disabled onClick={() => {
+                    setHabitoNovo({ ...habitoNovo, days: tirarElemento(habitoNovo.days, indice) });
+                }
+                }>{dia}</DiaSelecionado>
         )
     }
 }

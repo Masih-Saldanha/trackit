@@ -61,6 +61,7 @@ export default function Cadastro() {
                             nome="nome"
                             id="nome"
                             placeholder="nome"
+                            required
                         />
                         <input
                             type="url"
@@ -69,6 +70,7 @@ export default function Cadastro() {
                             nome="foto"
                             id="foto"
                             placeholder="foto"
+                            required
                         />
                         <button type="submit">Cadastrar</button>
                     </form> :
@@ -100,6 +102,7 @@ export default function Cadastro() {
                             nome="nome"
                             id="nome"
                             placeholder="nome"
+                            required
                             disabled
                         />
                         <input
@@ -109,6 +112,7 @@ export default function Cadastro() {
                             nome="foto"
                             id="foto"
                             placeholder="foto"
+                            required
                             disabled
                         />
                         <button disabled>
