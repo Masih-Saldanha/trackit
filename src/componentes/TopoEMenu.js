@@ -9,13 +9,13 @@ export default function TopoEMenu() {
     if (token !== "") {
         return (
             <>
-                <Topo>
+                <Topo onLoad={receberHistorico}>
                     <h1>TrackIt</h1>
                     <img src={imagemPerfil} alt="foto" />
                 </Topo>
                 <Base>
                     <Link to="/habitos/">
-                        <h1 onClick={receberHistorico}>Hábitos</h1>
+                        <h1>Hábitos</h1>
                     </Link>
                     <Link to="/historico/">
                         <h1>Histórico</h1>
