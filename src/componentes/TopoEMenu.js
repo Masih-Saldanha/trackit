@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import TokenContext from "../contextos/TokenContext";
 import foto from "../assets/ashen-one.jpg";
 
-export default function TopoEMenu(props) {
-    const { logado } = props;
-    if (logado) {
+export default function TopoEMenu() {
+    const { token } = useContext(TokenContext);
+
+    if (token !== "") {
         return (
             <>
                 <Topo>

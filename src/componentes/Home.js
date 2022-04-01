@@ -1,12 +1,14 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import axios from "axios";
 import styled from "styled-components";
+import TokenContext from "../contextos/TokenContext";
 import logo from "../assets/logo.svg";
 
-export default function Home(props) {
-    const { logado, setLogado } = props;
+export default function Home() {
+    const contexto = useContext(TokenContext);
+
     const navigate = useNavigate();
     const [dadosLogin, setDadosLogin] = useState({ email: "masih.saldanha@gmail.com", password: "macuco" });
     const [carregandoLogin, setCarregandoLogin] = useState(false);
@@ -17,10 +19,10 @@ export default function Home(props) {
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", dadosLogin);
         promise.then(response => {
             const { data } = response;
-            // const { token } = data;
+            const { token } = data;
             console.log("Deu bom o envio", data);
             navigate("/hoje/");
-            setLogado(true);
+            contexto.setToken(token);
         });
         promise.catch(err => {
             const { response } = err;
@@ -32,7 +34,7 @@ export default function Home(props) {
             setCarregandoLogin(false);
         });
     }
-    if (logado) {
+    if (contexto.token !== "") {
         return (
             <FrenteLogado>Você está logado! :)</FrenteLogado>
         )
