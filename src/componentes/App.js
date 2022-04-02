@@ -58,7 +58,20 @@ export default function App() {
     }
 
     return (
-        <TokenContext.Provider value={{token, setToken, imagemPerfil, setImagemPerfil, listaHabitos, setListaHabitos, receberHistorico, listaHabitosHoje, setListaHabitosHoje, receberHabitosHoje}}>
+        <TokenContext.Provider
+            value={{
+                token,
+                setToken,
+                imagemPerfil,
+                setImagemPerfil,
+                listaHabitos,
+                setListaHabitos,
+                receberHistorico,
+                listaHabitosHoje,
+                setListaHabitosHoje,
+                receberHabitosHoje
+            }}
+        >
             <BrowserRouter>
                 <TopoEMenu />
                 <Routes>
