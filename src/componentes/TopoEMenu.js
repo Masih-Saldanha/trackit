@@ -1,10 +1,12 @@
 import { useContext } from "react";
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TokenContext from "../contextos/TokenContext";
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function TopoEMenu() {
-    const { token, imagemPerfil, receberHistorico, receberHabitosHoje } = useContext(TokenContext);
+    const { token, imagemPerfil, receberHistorico, receberHabitosHoje, porcentagem } = useContext(TokenContext);
 
     if (token !== "") {
         return (
@@ -24,11 +26,13 @@ export default function TopoEMenu() {
                         <h1>Histórico</h1>
                     </Link>
                 </Base>
-                <BotaoHoje>
-                    <Link to="/hoje/">
-                        <h2 onClick={receberHabitosHoje}>Hoje</h2>
-                    </Link>
-                </BotaoHoje>
+                <Link to="/hoje/">
+                    <BotaoHoje onClick={receberHabitosHoje}>
+                        <CircularProgressbar value={porcentagem.base} maxValue={porcentagem.total} text={"Hoje"}>
+                            {/* <h2>Hoje</h2> */}
+                        </CircularProgressbar>
+                    </BotaoHoje>
+                </Link>
             </>
         )
     } else return <></>

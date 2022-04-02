@@ -15,6 +15,7 @@ export default function App() {
     const [imagemPerfil, setImagemPerfil] = useState("");
     const [listaHabitos, setListaHabitos] = useState([]);
     const [listaHabitosHoje, setListaHabitosHoje] = useState([]);
+    const [porcentagem, setPorcentagem] = useState({ base: 0, total: 1 });
 
     function receberHistorico() {
         const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
@@ -46,7 +47,15 @@ export default function App() {
         const promise = axios.get(url, config);
         promise.then((response) => {
             const { data } = response;
-            console.log(data);
+            const feitos = data.filter(atividade => {
+                if (atividade.done === true) {
+                    return atividade;
+                }
+            })
+            setPorcentagem({
+                base: feitos.length,
+                total: data.length
+            });
             setListaHabitosHoje(data);
         })
         promise.catch((err) => {
@@ -69,7 +78,8 @@ export default function App() {
                 receberHistorico,
                 listaHabitosHoje,
                 setListaHabitosHoje,
-                receberHabitosHoje
+                receberHabitosHoje,
+                porcentagem
             }}
         >
             <BrowserRouter>

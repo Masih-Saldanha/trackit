@@ -15,8 +15,6 @@ export default function Cadastro() {
         setCarregandoCadastro(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", dadosContaNova);
         promise.then(response => {
-            // const { data } = response;
-            // console.log("Deu bom o envio", data);
             navigate("/");
         });
         promise.catch(err => {
@@ -25,7 +23,6 @@ export default function Cadastro() {
             const { message } = data;
             alert(message);
             setDadosContaNova({ email: "", name: "", image: "", password: "" });
-            // console.log("Deu ruim o envio", message);
             setCarregandoCadastro(false);
         });
     }

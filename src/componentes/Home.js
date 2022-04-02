@@ -20,7 +20,6 @@ export default function Home() {
         promise.then(response => {
             const { data } = response;
             const { token, image } = data;
-            // console.log("Deu bom o envio", data);
             navigate("/hoje/");
             setToken(token);
             setImagemPerfil(image);
@@ -31,7 +30,6 @@ export default function Home() {
             const { message } = data;
             alert(message);
             setDadosLogin({ email: "", password: "" });
-            // console.log("Deu ruim o envio", message);
             setCarregandoLogin(false);
         });
     }

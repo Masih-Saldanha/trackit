@@ -5,7 +5,7 @@ import HojeLista from "./HojeLista";
 import TokenContext from "../contextos/TokenContext";
 
 export default function Hoje() {
-    const { listaHabitosHoje } = useContext(TokenContext);
+    const { listaHabitosHoje, porcentagem } = useContext(TokenContext);
 
     require("dayjs/locale/pt-br");
     dayjs.locale("pt-br");
@@ -35,7 +35,7 @@ export default function Hoje() {
     return (
         <HojeExibido>
             <h1>{stringSemana}, {diaMes}</h1>
-            <p>Nenhum hábito concluído ainda</p>
+            {porcentagem.base === 0 ? <TextoCinza>Nenhum hábito concluído ainda</TextoCinza> : <TextoVerde>{(porcentagem.base/porcentagem.total) * 100}% dos hábitos concluídos</TextoVerde>}
             {renderizarListaHabitosHoje}
         </HojeExibido>
     )
@@ -48,8 +48,13 @@ h1 {
     font-size: 23px;
     color: #126BA5;
 }
-p {
-    color: #BABABA;
-    margin-bottom: 28px;
-}
+`
+const TextoCinza = styled.p`
+color: #BABABA;
+margin-bottom: 28px;
+`
+
+const TextoVerde = styled.p`
+color: #8FC549;
+margin-bottom: 28px;
 `

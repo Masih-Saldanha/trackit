@@ -5,7 +5,7 @@ import TokenContext from "../contextos/TokenContext";
 import lixeira from "../assets/lixeira.svg";
 
 export default function HabitosLista({id, nome, dias}) {
-    const { token, receberHistorico } = useContext(TokenContext);
+    const { token, receberHistorico, receberHabitosHoje } = useContext(TokenContext);
 
     function apagar() {
         const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
@@ -17,6 +17,7 @@ export default function HabitosLista({id, nome, dias}) {
         const promise = axios.delete(url, config);
         promise.then((response) => {
             receberHistorico();
+            receberHabitosHoje();
         })
         promise.catch((err) => {
             const { response } = err;
@@ -44,7 +45,7 @@ export default function HabitosLista({id, nome, dias}) {
                 onClick={() => {
                     const confirmar = window.confirm("Deseja mesmo apagar este hábito da sua lista?");
                     if (confirmar) {
-                        apagar()
+                        apagar();
                     }
                 }}
             />
