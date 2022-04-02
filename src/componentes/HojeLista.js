@@ -52,8 +52,10 @@ export default function HojeLista({ id, name, done, currentSequence, highestSequ
             <CaixaHabitoHoje>
                 <section>
                     <h2>{name}</h2>
-                    <h3>Sequência atual: {currentSequence} dias</h3>
-                    <h3>Seu recorde: {highestSequence} dias</h3>
+                    <div>
+                        <h3>Sequência atual: {currentSequence} dias</h3>
+                        <h3>Seu recorde: {highestSequence} dias</h3>
+                    </div>
                 </section>
                 <Desmarcado onClick={marcarDesmarcarHabito}>
                     <img src={check_marca} alt="Caixa de Marcar" />
@@ -63,8 +65,10 @@ export default function HojeLista({ id, name, done, currentSequence, highestSequ
             <CaixaHabitoHoje>
                 <section>
                     <h2>{name}</h2>
-                    <h3>Sequência atual<MarcadoSequencia>: {currentSequence} dias</MarcadoSequencia></h3>
-                    {currentSequence === highestSequence ? <h3>Seu recorde<MarcadoSequencia>: {highestSequence} dias</MarcadoSequencia></h3> : <h3>Seu recorde: {highestSequence} dias</h3>}
+                    <div>
+                        <h3>Sequência atual<MarcadoSequencia>: {currentSequence} dias</MarcadoSequencia></h3>
+                        {currentSequence === highestSequence ? <h3>Seu recorde<MarcadoSequencia>: {highestSequence} dias</MarcadoSequencia></h3> : <h3>Seu recorde: {highestSequence} dias</h3>}
+                    </div>
                 </section>
                 <Marcado onClick={marcarDesmarcarHabito}>
                     <img src={check_marca} alt="Caixa de Marcar" />
@@ -82,6 +86,10 @@ justify-content: space-between;
 align-items: center;
 margin-bottom: 10px;
 section {
+    div {
+        display: flex;
+        flex-direction: column;
+    }
     h2 {
         font-size: 20px;
         margin-bottom: 10px;
