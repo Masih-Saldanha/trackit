@@ -10,7 +10,7 @@ export default function Home() {
     const { token, setToken, setImagemPerfil } = useContext(TokenContext);
 
     const navigate = useNavigate();
-    const [dadosLogin, setDadosLogin] = useState({ email: "masih@email.com", password: "macuco" });
+    const [dadosLogin, setDadosLogin] = useState({ email: "", password: "" });
     const [carregandoLogin, setCarregandoLogin] = useState(false);
 
     function fazerLogin(e) {
