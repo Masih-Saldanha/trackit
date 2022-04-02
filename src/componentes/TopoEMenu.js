@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import TokenContext from "../contextos/TokenContext";
@@ -28,9 +28,16 @@ export default function TopoEMenu() {
                 </Base>
                 <Link to="/hoje/">
                     <BotaoHoje onClick={receberHabitosHoje}>
-                        <CircularProgressbar value={porcentagem.base} maxValue={porcentagem.total} text={"Hoje"}>
-                            {/* <h2>Hoje</h2> */}
-                        </CircularProgressbar>
+                        <CircularProgressbar
+                            value={porcentagem.base}
+                            maxValue={porcentagem.total}
+                            text={"Hoje"}
+                            styles={buildStyles({
+                                pathColor: `rgba(255, 255, 255, ${(porcentagem.base/porcentagem.total) * 100})`,
+                                textColor: '#FFFFFF',
+                                trailColor: '#52B6FF',
+                            })}
+                        ></CircularProgressbar>
                     </BotaoHoje>
                 </Link>
             </>
@@ -81,12 +88,8 @@ bottom: 10px;
 left: calc(50vw - 45px);
 width: 90px;
 height: 90px;
-text-align: center;
+padding: 6px;
 border-radius: 50%;
 background-color: #52B6FF;
 z-index: 2;
-h2 {
-    margin-top: calc(45px - 11px);
-    color: #FFFFFF;
-}
 `

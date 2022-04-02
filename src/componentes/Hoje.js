@@ -35,7 +35,7 @@ export default function Hoje() {
     return (
         <HojeExibido>
             <h1>{stringSemana}, {diaMes}</h1>
-            {porcentagem.base === 0 ? <TextoCinza>Nenhum hábito concluído ainda</TextoCinza> : <TextoVerde>{(porcentagem.base/porcentagem.total) * 100}% dos hábitos concluídos</TextoVerde>}
+            {porcentagem.base === 0 ? <TextoCinza>Nenhum hábito concluído ainda</TextoCinza> : <TextoVerde>{((porcentagem.base/porcentagem.total) * 100).toFixed()}% dos hábitos concluídos</TextoVerde>}
             {renderizarListaHabitosHoje}
         </HojeExibido>
     )
