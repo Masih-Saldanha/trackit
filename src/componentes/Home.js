@@ -20,6 +20,8 @@ export default function Home() {
         promise.then(response => {
             const { data } = response;
             const { token, image } = data;
+            localStorage.setItem("email", dadosLogin.email);
+            localStorage.setItem("password", dadosLogin.password);
             navigate("/hoje/");
             setToken(token);
             setImagemPerfil(image);
@@ -33,67 +35,93 @@ export default function Home() {
             setCarregandoLogin(false);
         });
     }
+
     if (token !== "") {
         return (
             <FrenteLogado>Você está logado! :)</FrenteLogado>
         )
-    } else return (
-        <Fundo>
-            <FrenteLogin>
-                <img src={logo} alt="logo" />
-                {carregandoLogin === false ?
-                    <form onSubmit={fazerLogin}>
-                        <input
-                            type="email"
-                            value={dadosLogin.email}
-                            onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
-                            nome="email"
-                            id="email"
-                            placeholder="email"
-                            required
-                        />
-                        <input
-                            type="password"
-                            value={dadosLogin.password}
-                            onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
-                            nome="senha"
-                            id="senha"
-                            placeholder="senha"
-                            required
-                        />
-                        <button type="submit">Entrar</button>
-                    </form> :
-                    <form onSubmit={fazerLogin}>
-                        <input
-                            type="email"
-                            value={dadosLogin.email}
-                            onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
-                            nome="email"
-                            id="email"
-                            placeholder="email"
-                            required
-                            disabled
-                        />
-                        <input
-                            type="password"
-                            value={dadosLogin.password}
-                            onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
-                            nome="senha"
-                            id="senha"
-                            placeholder="senha"
-                            required
-                            disabled
-                        />
-                        <button disabled>
-                            <ThreeDots color="#FFFFFF" height={13} width={13} />
-                        </button>
-                    </form>}
-                <Link to="/cadastro">
-                    <h1>Não tem uma conta? Cadastre-se!</h1>
-                </Link>
-            </FrenteLogin>
-        </Fundo>
-    )
+    } else if (localStorage.email !== undefined && localStorage.password !== undefined && token === "") {
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", { email: localStorage.getItem("email"), password: localStorage.getItem("password") });
+        promise.then(response => {
+            const { data } = response;
+            const { token, image } = data;
+            navigate("/hoje/");
+            setToken(token);
+            setImagemPerfil(image);
+        });
+        promise.catch(err => {
+            const { response } = err;
+            const { data } = response
+            const { message } = data;
+            alert(message);
+            setDadosLogin({ email: "", password: "" });
+            setCarregandoLogin(false);
+        });
+        return (
+            <LoginAutomatico>
+                <h1>Logando automaticamente!</h1>
+                <ThreeDots color="#52B6FF" height={80} width={80} />
+            </LoginAutomatico>
+        )
+    } else {
+        return (
+            <Fundo>
+                <FrenteLogin>
+                    <img src={logo} alt="logo" />
+                    {carregandoLogin === false ?
+                        <form onSubmit={fazerLogin}>
+                            <input
+                                type="email"
+                                value={dadosLogin.email}
+                                onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                                nome="email"
+                                id="email"
+                                placeholder="email"
+                                required
+                            />
+                            <input
+                                type="password"
+                                value={dadosLogin.password}
+                                onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                                nome="senha"
+                                id="senha"
+                                placeholder="senha"
+                                required
+                            />
+                            <button type="submit">Entrar</button>
+                        </form> :
+                        <form onSubmit={fazerLogin}>
+                            <input
+                                type="email"
+                                value={dadosLogin.email}
+                                onChange={(e) => setDadosLogin({ ...dadosLogin, email: e.target.value })}
+                                nome="email"
+                                id="email"
+                                placeholder="email"
+                                required
+                                disabled
+                            />
+                            <input
+                                type="password"
+                                value={dadosLogin.password}
+                                onChange={(e) => setDadosLogin({ ...dadosLogin, password: e.target.value })}
+                                nome="senha"
+                                id="senha"
+                                placeholder="senha"
+                                required
+                                disabled
+                            />
+                            <button disabled>
+                                <ThreeDots color="#FFFFFF" height={13} width={13} />
+                            </button>
+                        </form>}
+                    <Link to="/cadastro">
+                        <h1>Não tem uma conta? Cadastre-se!</h1>
+                    </Link>
+                </FrenteLogin>
+            </Fundo>
+        )
+    }
 }
 
 const Fundo = styled.figure`
@@ -113,6 +141,22 @@ background-color: #52B6FF;
 
 font-size: 20px;
 color: #FFFFFF;
+`
+
+const LoginAutomatico = styled.main`
+position: fixed;
+top: calc(50vh - 60px);
+left: calc(50vw - 145.10px);
+padding: 10px;
+border-radius: 5px;
+/* background-color: #52B6FF; */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+font-size: 20px;
+color: #52B6FF;
 `
 
 const FrenteLogin = styled.section`

@@ -1,10 +1,24 @@
+import { useState } from "react";
 import styled from "styled-components";
+import Calendar from "react-calendar";
+import 'react-calendar/dist/Calendar.css';
 
 export default function Historico() {
+    // const [valor, setValor] = useState(new Date());
+
+    // function onChange(nextValue) {
+    //     setValor(nextValue);
+    // }
+
     return (
         <HistoricoExibido>
             <h1>Histórico</h1>
-            <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+            <Calendar
+                // onChange={onChange}
+                // value={valor}
+                calendarType="US"
+                locale="pt-br"
+            />
         </HistoricoExibido>
     )
 }
