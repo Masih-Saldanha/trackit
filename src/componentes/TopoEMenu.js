@@ -6,7 +6,7 @@ import TokenContext from "../contextos/TokenContext";
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function TopoEMenu() {
-    const { token, imagemPerfil, receberHistorico, receberHabitosHoje, porcentagem } = useContext(TokenContext);
+    const { token, imagemPerfil, receberHistorico, receberHabitosHoje, porcentagem, receberHabitosDiarios } = useContext(TokenContext);
 
     if (token !== "") {
         return (
@@ -14,6 +14,7 @@ export default function TopoEMenu() {
                 <Topo onLoad={() => {
                     receberHistorico();
                     receberHabitosHoje();
+                    receberHabitosDiarios();
                 }}>
                     <h1>TrackIt</h1>
                     <img src={imagemPerfil} alt="foto" />

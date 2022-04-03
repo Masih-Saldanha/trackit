@@ -15,6 +15,7 @@ export default function App() {
     const [imagemPerfil, setImagemPerfil] = useState("");
     const [listaHabitos, setListaHabitos] = useState([]);
     const [listaHabitosHoje, setListaHabitosHoje] = useState([]);
+    const [habitosDiarios, setHabitosDiarios] = useState([]);
     const [porcentagem, setPorcentagem] = useState({ base: 0, total: 1 });
 
     function receberHistorico() {
@@ -27,6 +28,7 @@ export default function App() {
         const promise = axios.get(url, config);
         promise.then((response) => {
             const { data } = response;
+            // console.log("Historico: ", data);
             setListaHabitos(data);
         })
         promise.catch((err) => {
@@ -56,7 +58,29 @@ export default function App() {
                 base: feitos.length,
                 total: data.length
             });
+            // console.log("Habitos de Hoje: ", data);
             setListaHabitosHoje(data);
+        })
+        promise.catch((err) => {
+            const { response } = err;
+            const { data } = response;
+            const { message } = data;
+            alert(message);
+        })
+    }
+
+    function receberHabitosDiarios() {
+        const url = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily";
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+        const promise = axios.get(url, config);
+        promise.then((response) => {
+            const { data } = response;
+            // console.log("Habitos Diários: ", data);
+            setHabitosDiarios(data);
         })
         promise.catch((err) => {
             const { response } = err;
@@ -79,7 +103,9 @@ export default function App() {
                 listaHabitosHoje,
                 setListaHabitosHoje,
                 receberHabitosHoje,
-                porcentagem
+                porcentagem,
+                receberHabitosDiarios,
+                habitosDiarios
             }}
         >
             <BrowserRouter>
