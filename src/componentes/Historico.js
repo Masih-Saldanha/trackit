@@ -9,9 +9,6 @@ export default function Historico() {
     const { habitosDiarios } = useContext(TokenContext);
     const [listaDeHabitos, setListaDeHabitos] = useState([]);
 
-    // require("dayjs/locale/pt-br");
-    // dayjs.locale("pt-br");
-
     function mostrarHabitosNoCalendario(data) {
         let dataFormatada = dayjs(data).format("DD/MM/YYYY");
         let habitosAtuais = null;
@@ -23,7 +20,7 @@ export default function Historico() {
         });
 
         if (!habitosAtuais || dayjs(data).format("DD/MM/YYYY") === dayjs().locale("pt-br").format("DD/MM/YYYY")) {
-            return <DiaNormal>{dayjs(data).format("DD")}</DiaNormal>
+            return <p>{dayjs(data).format("DD")}</p>
         }
 
         let habitosFeitos = habitosAtuais.filter((h) => h.done);
@@ -47,6 +44,24 @@ export default function Historico() {
         setListaDeHabitos(habitosAtuais);
     }
 
+    function mostrarTituloDosHabitosDoDiaClicado() {
+        let habitoDoDia = "";
+        if (listaDeHabitos.length > 0) {
+            habitoDoDia = listaDeHabitos[0].date;
+        }
+
+        return listaDeHabitos.length > 0 ?
+            (
+                <TextoPrincipal>Hábitos do dia {dayjs(habitoDoDia).locale("pt-br").format("DD/MM")}</TextoPrincipal>
+            )
+            :
+            (
+                <></>
+            );
+    }
+
+    let TituloDosHabitosDoDiaClicado = mostrarTituloDosHabitosDoDiaClicado();
+
     function mostrarHabitosDoDiaClicado() {
         return listaDeHabitos.length > 0 ? (
             <div className="habits-list">
@@ -64,35 +79,18 @@ export default function Historico() {
             );
     }
 
-    function mostrarTituloDosHabitosDoDiaClicado() {
-        let habitoDoDia = "";
-        if (listaDeHabitos.length > 0) {
-            habitoDoDia = listaDeHabitos[0].date;
-        }
-
-        return listaDeHabitos.length > 0 ?
-            (
-                <TextoPrincipal>Hábitos do dia {dayjs(habitoDoDia).locale("pt-br").format("DD/MM")}</TextoPrincipal>
-            )
-            :
-            (
-                <></>
-            );
-    }
-
     let HabitosDoDiaClicado = mostrarHabitosDoDiaClicado();
-    let TituloDosHabitosDoDiaClicado = mostrarTituloDosHabitosDoDiaClicado();
 
     return (
         <HistoricoExibido>
             <h1>Histórico</h1>
-            {/* <CalendarStyle> */}
-            <Calendar
-                calendarType="US"
-                formatDay={(locale, date) => mostrarHabitosNoCalendario(date)}
-                onClickDay={(data) => listarHabitos(data)}
-            />
-            {/* </CalendarStyle> */}
+            <EstiloDoCalendario>
+                <Calendar
+                    calendarType="US"
+                    formatDay={(locale, date) => mostrarHabitosNoCalendario(date)}
+                    onClickDay={(data) => listarHabitos(data)}
+                />
+            </EstiloDoCalendario>
             {TituloDosHabitosDoDiaClicado}
             {HabitosDoDiaClicado}
         </HistoricoExibido>
@@ -106,6 +104,67 @@ h1 {
     font-size: 23px;
     color: #126BA5;
 }
+`
+
+const EstiloDoCalendario = styled.div`
+.react-calendar {
+	width: 100%;
+	line-height: 1.125em;
+	border-radius: 10px;
+	box-shadow: 0px -1px 1px rgba(0, 0, 0, 0.15);
+}
+.react-calendar__navigation {
+	margin-bottom: 2em;
+}
+.react-calendar__navigation button:disabled {
+	background-color: #F0F0F0;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+	background-color: #E6E6E6;
+}
+.react-calendar__month-view__weekdays {
+    text-decoration: dotted underline;
+}
+.react-calendar__month-view__days__day--weekend {
+	color: #D10000;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+	color: #757575;
+}
+.react-calendar__tile {
+	padding: 14px 6.6667px;
+	background: none;
+	line-height: 30px;
+}
+.react-calendar__tile:disabled {
+	background-color: #F0F0F0;
+}
+.react-calendar__tile--now {
+	background: #FFFF76;
+}
+.react-calendar__tile--now:enabled:hover,
+.react-calendar__tile--now:enabled:focus {
+	background: #FFFFA9;
+}
+`;
+
+const DiaFeito = styled.p`
+width: 30px;
+background-color: #8CC654;
+border-radius: 50px;
+color: white;
+text-align: center;
+margin-left: calc((100% - 30px) / 2);
+`
+
+const DiaNaoFeito = styled.p`
+width: 30px;
+background-color: #E95766;
+border-radius: 50px;
+color: white;
+text-align: center;
+margin-left: calc((100% - 30px) / 2);
 `
 
 const TextoPrincipal = styled.h2`
@@ -126,25 +185,4 @@ color: #8CC654;
 const TextoNaoFeito = styled.h2`
 font-size: 16px;
 color: #E75665;
-`
-
-const DiaNormal = styled.p`
-/* background: blue; */
-/* border-radius: 50%; */
-/* width: 35px; */
-/* height: 35px; */
-`
-
-const DiaFeito = styled.p`
-background: #8CC654;
-/* border-radius: 50%; */
-/* width: 35px; */
-/* height: 35px; */
-`
-
-const DiaNaoFeito = styled.p`
-background: #E75665;
-/* border-radius: 50%; */
-/* width: 35px; */
-/* height: 35px; */
 `

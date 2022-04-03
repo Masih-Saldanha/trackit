@@ -28,7 +28,6 @@ export default function App() {
         const promise = axios.get(url, config);
         promise.then((response) => {
             const { data } = response;
-            // console.log("Historico: ", data);
             setListaHabitos(data);
         })
         promise.catch((err) => {
@@ -58,7 +57,6 @@ export default function App() {
                 base: feitos.length,
                 total: data.length
             });
-            // console.log("Habitos de Hoje: ", data);
             setListaHabitosHoje(data);
         })
         promise.catch((err) => {
@@ -79,7 +77,6 @@ export default function App() {
         const promise = axios.get(url, config);
         promise.then((response) => {
             const { data } = response;
-            // console.log("Habitos Diários: ", data);
             setHabitosDiarios(data);
         })
         promise.catch((err) => {
@@ -100,12 +97,11 @@ export default function App() {
                 listaHabitos,
                 setListaHabitos,
                 receberHistorico,
-                listaHabitosHoje,
-                setListaHabitosHoje,
                 receberHabitosHoje,
-                porcentagem,
                 receberHabitosDiarios,
-                habitosDiarios
+                listaHabitosHoje,
+                habitosDiarios,
+                porcentagem
             }}
         >
             <BrowserRouter>

@@ -12,7 +12,7 @@ export default function Habitos() {
     const [carregandoHabitoNovo, setCarregandoHabitoNovo] = useState(false);
     const arraySemana = ["D", "S", "T", "Q", "Q", "S", "S"];
     
-    const { token, listaHabitos, setListaHabitos, receberHabitosHoje, receberHabitosDiarios } = useContext(TokenContext);
+    const { token, listaHabitos, setListaHabitos, receberHistorico, receberHabitosHoje, receberHabitosDiarios } = useContext(TokenContext);
 
     function tirarElemento(array, item) {
         return array.filter(elemento => {
@@ -33,6 +33,7 @@ export default function Habitos() {
         const promise = axios.post(url, habitoNovo, config);
         promise.then((response) => {
             const { data } = response;
+            receberHistorico();
             receberHabitosHoje();
             receberHabitosDiarios();
             setListaHabitos([...listaHabitos, data]);
