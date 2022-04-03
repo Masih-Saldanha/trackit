@@ -5,7 +5,7 @@ import TokenContext from "../contextos/TokenContext";
 import lixeira from "../assets/lixeira.svg";
 
 export default function HabitosLista({id, nome, dias}) {
-    const { token, receberHistorico, receberHabitosHoje } = useContext(TokenContext);
+    const { token, receberHistorico, receberHabitosHoje, receberHabitosDiarios } = useContext(TokenContext);
 
     function apagar() {
         const url = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`;
@@ -18,6 +18,7 @@ export default function HabitosLista({id, nome, dias}) {
         promise.then((response) => {
             receberHistorico();
             receberHabitosHoje();
+            receberHabitosDiarios();
         })
         promise.catch((err) => {
             const { response } = err;

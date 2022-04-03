@@ -5,7 +5,7 @@ import check_marca from "../assets/checkbox-marca.svg";
 import TokenContext from "../contextos/TokenContext";
 
 export default function HojeLista({ id, name, done, currentSequence, highestSequence }) {
-    const { token, receberHabitosHoje } = useContext(TokenContext);
+    const { token, receberHabitosHoje, receberHabitosDiarios } = useContext(TokenContext);
 
     function marcarDesmarcarHabito() {
         if (done === false) {
@@ -18,6 +18,7 @@ export default function HojeLista({ id, name, done, currentSequence, highestSequ
             };
             const promise = axios.post(url, true, config);
             promise.then((response) => {
+                receberHabitosDiarios();
                 receberHabitosHoje();
             });
             promise.catch((err) => {
@@ -36,6 +37,7 @@ export default function HojeLista({ id, name, done, currentSequence, highestSequ
             };
             const promise = axios.post(url, false, config);
             promise.then((response) => {
+                receberHabitosDiarios();
                 receberHabitosHoje();
             });
             promise.catch((err) => {
