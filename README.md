@@ -11,7 +11,7 @@ In the tab "Histórico" you can see your progress in completing yout habits thro
 
 All data are stored in a public API.
 
-I created this project with the aim of creating a usefull tool to people keep your habits in addition to challenging myself.
+I created this project with the aim of creating a usefull tool to help people keep their habits tracked in addition to challenging myself.
 
 ## Technologies used
 
