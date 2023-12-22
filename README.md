@@ -26,7 +26,7 @@ I created this project with the aim of creating a usefull tool to help people ke
 
 ## How to run
 
-You can just access the deploy in: https://projeto10-trackit-peach.vercel.app/
+You can just access the deploy in: https://trackit-masih.vercel.app/
 
 or
 
